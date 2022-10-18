@@ -31,11 +31,15 @@ public interface AnalizadorConstants {
   /** RegularExpression Id. */
   int HORA = 11;
   /** RegularExpression Id. */
-  int RECID = 12;
+  int MINUTO = 12;
   /** RegularExpression Id. */
-  int ESTADOSISTEMA = 13;
+  int HORARIO = 13;
   /** RegularExpression Id. */
-  int LATITUD = 14;
+  int RECID = 14;
+  /** RegularExpression Id. */
+  int ESTADOSISTEMA = 15;
+  /** RegularExpression Id. */
+  int LATITUD = 16;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -54,6 +58,8 @@ public interface AnalizadorConstants {
     "<ANIO>",
     "<FECHA>",
     "<HORA>",
+    "<MINUTO>",
+    "<HORARIO>",
     "<RECID>",
     "<ESTADOSISTEMA>",
     "<LATITUD>",
