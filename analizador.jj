@@ -1,0 +1,35 @@
+PARSER_BEGIN(Analizador)
+
+public class Analizador {
+    public static void main (String[] args) throws ParseException{
+        try{
+            Analizador checador =  new Analizador(System.in);
+            checador.prog();
+            System.out.println("Se ha compilado correctamente  :)");
+        }
+        catch (ParseException e){
+            System.out.println("Hay un error  :(");
+            System.out.println(e.getMessage());x
+        }
+    }
+
+}
+PARSER_END(Analizador)
+TOKEN : {
+    <COMA: "," > {System.out.println("COMA");} |
+    <PUNTO: "." > {System.out.println("PUNTO");} |
+    <NEGATIVO: "-" > {System.out.println("NEGATIVO o GUIÓN");} |
+    <DOS_PUNTOS: ":" > {System.out.println("DOS PUNTOS");}
+}
+TOKEN : {
+<Identificador: "AL" (["0"-"9"])* > {System.out.println("IDENTIFICADOR");} |
+<HURACAN: "HU" >{System.out.println("HURACAN");}|
+<TOMENTA: "TS">{System.out.println("TORMENTA");}
+}
+TOKEN : {
+    <NUMERO: (["0"-"9"])+ > {System.out.println("NUMERO");} |
+    <CADENA: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])* >{System.out.println("CADENA");}
+}
+SKIP : {
+" " | "\r" | "\n" | "\t"
+}
