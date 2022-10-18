@@ -1,36 +1,29 @@
+
 PARSER_BEGIN(Analizador)
 
 public class Analizador {
-    public static void main (String[] args) throws ParseException{
+    public static void main (String[] args) {
         try{
             Analizador checador =  new Analizador(System.in);
-            checador.prog();
+            checador.run();
             System.out.println("Se ha compilado correctamente  :)");
         }
         catch (ParseException e){
             System.out.println("Hay un error  :(");
-            System.out.println(e.getMessage());x
+            System.out.println(e.getMessage());
         }
     }
-
 }
 PARSER_END(Analizador)
+
+
 TOKEN : {
-    <COMA: "," > {System.out.println("COMA");} |
+    //<COMA: "," > {System.out.println("COMA");} |
     <PUNTO: "." > {System.out.println("PUNTO");} |
     <NEGATIVO: "-" > {System.out.println("NE    GATIVO o GUIÓN");} |
     <DOS_PUNTOS: ":" > {System.out.println("DOS PUNTOS");}
+    //<ESPACIO: "  " >{System.out.println("ESPACIO");}
 }
-
-TOKEN : {
-
-<DIA: ["0"-"9"] ["0"-"9"]> {System.out.print("DIA ");} |
-<MES:["0"-"1"] ["0"-"9"]> {System.out.print("MES ");}|
-<ANIO:["0"-"9"] ["0"-"9"] ["0"-"9"] ["0"-"9"]> {System.out.print("AÑO ");}|
-<FECHA: <ANIO> <MES> <DIA> >{System.out.println("FECHA");}
-
-}
-
 
 TOKEN : {
 <IDENTIFICADOR: "AL" ["0"-"9"] ["0"-"9"] <ANIO> > {System.out.println("IDENTIFICADOR");} |
@@ -39,9 +32,32 @@ TOKEN : {
 }
 
 TOKEN : {
-    <NUMERO: (["0"-"9"])+ > {System.out.println("NUMERO");} |
-    <CADENA: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])* >{System.out.println("CADENA");}
+
+<DIA: ["0"-"3"] ["0"-"9"]> {System.out.print("DIA ");} |
+<MES:["0"-"1"] ["0"-"9"]> {System.out.print("MES ");}|
+<ANIO:["0"-"9"] ["0"-"9"] ["0"-"9"] ["0"-"9"]> {System.out.print("AÑO ");}|
+<FECHA: <ANIO> <MES> <DIA> >{System.out.println("FECHA");}|
+<HORA: ["0"-"2"] ["0"-"9"] ["0"-"5"] ["0"-"9"]> {System.out.println("HORA");}
+
 }
+
+
+
+TOKEN : {
+<RECID: "C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W">{System.out.println("RECORDIDENT");}|
+<ESTADOSISTEMA:"TD"|"TS"|"HU"|"EX"|"SD"|"SS"|"LO"|"WV"|"DB" >{System.out.println("ESTADOSISTEMA");}|
+<LATITUD: (["0"-"2"])* "," (["0"-"9"])* "N"|"S" >{System.out.println("LATITUD");}
+}
+
+//TOKEN : {
+    //<NUMERO: (["0"-"9"])+ > {System.out.println("NUMERO");} |
+    //<CADENA: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])* >{System.out.println("CADENA");}
+//  }
+
 SKIP : {
-" " | "\r" | "\n" | "\t"
+  " "| "\r" | "\n" | "\t"|","
 }
+
+void run():{} {
+        <IDENTIFICADOR> <NOMBRE> <NUMFILAS> <FECHA> <HORA> <RECID> <ESTADOSISTEMA><EOF>
+        }
