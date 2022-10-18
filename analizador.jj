@@ -18,14 +18,26 @@ PARSER_END(Analizador)
 TOKEN : {
     <COMA: "," > {System.out.println("COMA");} |
     <PUNTO: "." > {System.out.println("PUNTO");} |
-    <NEGATIVO: "-" > {System.out.println("NEGATIVO o GUIÓN");} |
+    <NEGATIVO: "-" > {System.out.println("NE    GATIVO o GUIÓN");} |
     <DOS_PUNTOS: ":" > {System.out.println("DOS PUNTOS");}
 }
+
 TOKEN : {
-<Identificador: "AL" (["0"-"9"])* > {System.out.println("IDENTIFICADOR");} |
-<HURACAN: "HU" >{System.out.println("HURACAN");}|
-<TOMENTA: "TS">{System.out.println("TORMENTA");}
+
+<DIA: ["0"-"9"] ["0"-"9"]> {System.out.print("DIA ");} |
+<MES:["0"-"1"] ["0"-"9"]> {System.out.print("MES ");}|
+<ANIO:["0"-"9"] ["0"-"9"] ["0"-"9"] ["0"-"9"]> {System.out.print("AÑO ");}|
+<FECHA: <ANIO> <MES> <DIA> >{System.out.println("FECHA");}
+
 }
+
+
+TOKEN : {
+<IDENTIFICADOR: "AL" ["0"-"9"] ["0"-"9"] <ANIO> > {System.out.println("IDENTIFICADOR");} |
+<NOMBRE: (["A"-"Z","a"-"z"])*>{System.out.println("NOMBRE");}|
+<NUMFILAS: ["0"-"9"] ["0"-"9"]>{System.out.println("NUMFILAS");}
+}
+
 TOKEN : {
     <NUMERO: (["0"-"9"])+ > {System.out.println("NUMERO");} |
     <CADENA: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])* >{System.out.println("CADENA");}
