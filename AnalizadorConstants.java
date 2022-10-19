@@ -17,39 +17,29 @@ public interface AnalizadorConstants {
   /** RegularExpression Id. */
   int DOS_PUNTOS = 4;
   /** RegularExpression Id. */
-  int IDENTIFICADOR = 5;
+  int SALTO = 5;
   /** RegularExpression Id. */
-  int RECID = 6;
+  int IDENTIFICADOR = 6;
   /** RegularExpression Id. */
-  int ESTADOSISTEMA = 7;
+  int NOMBRE = 7;
   /** RegularExpression Id. */
-  int NOMBRE = 8;
+  int NUMFILAS_VALOR = 8;
   /** RegularExpression Id. */
-  int NUMFILAS = 9;
+  int FECHA = 9;
   /** RegularExpression Id. */
-  int LATITUD = 10;
+  int VALOR_HORA = 10;
   /** RegularExpression Id. */
-  int LONGITUD = 11;
+  int RECID = 11;
   /** RegularExpression Id. */
-  int VALOREXTRA = 12;
+  int ESTADOSISTEMA = 12;
   /** RegularExpression Id. */
-  int VALORES = 13;
+  int LATITUD = 13;
   /** RegularExpression Id. */
-  int HORA = 14;
+  int LONGITUD = 14;
   /** RegularExpression Id. */
-  int MINUTO = 15;
+  int VALOR = 15;
   /** RegularExpression Id. */
-  int HORARIO = 16;
-  /** RegularExpression Id. */
-  int DIA = 17;
-  /** RegularExpression Id. */
-  int MES = 18;
-  /** RegularExpression Id. */
-  int ANIO = 19;
-  /** RegularExpression Id. */
-  int FECHA = 20;
-  /** RegularExpression Id. */
-  int NUM = 21;
+  int NUM = 16;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -61,26 +51,20 @@ public interface AnalizadorConstants {
     "\".\"",
     "\"-\"",
     "\":\"",
+    "\"\\n\"",
     "<IDENTIFICADOR>",
+    "<NOMBRE>",
+    "<NUMFILAS_VALOR>",
+    "<FECHA>",
+    "<VALOR_HORA>",
     "<RECID>",
     "<ESTADOSISTEMA>",
-    "<NOMBRE>",
-    "<NUMFILAS>",
     "<LATITUD>",
     "<LONGITUD>",
-    "<VALOREXTRA>",
-    "<VALORES>",
-    "<HORA>",
-    "<MINUTO>",
-    "<HORARIO>",
-    "<DIA>",
-    "<MES>",
-    "<ANIO>",
-    "<FECHA>",
+    "<VALOR>",
     "<NUM>",
     "\" \"",
     "\"\\r\"",
-    "\"\\n\"",
     "\"\\t\"",
   };
 
