@@ -9,37 +9,41 @@ public interface AnalizadorConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int PUNTO = 1;
+  int COMA = 1;
   /** RegularExpression Id. */
-  int NEGATIVO = 2;
+  int PUNTO = 2;
   /** RegularExpression Id. */
-  int DOS_PUNTOS = 3;
+  int NEGATIVO = 3;
   /** RegularExpression Id. */
-  int IDENTIFICADOR = 4;
+  int DOS_PUNTOS = 4;
   /** RegularExpression Id. */
-  int NOMBRE = 5;
+  int IDENTIFICADOR = 5;
   /** RegularExpression Id. */
-  int NUMFILAS = 6;
+  int RECID = 6;
   /** RegularExpression Id. */
-  int DIA = 7;
+  int ESTADOSISTEMA = 7;
   /** RegularExpression Id. */
-  int MES = 8;
+  int NOMBRE = 8;
   /** RegularExpression Id. */
-  int ANIO = 9;
+  int NUMFILAS = 9;
   /** RegularExpression Id. */
-  int FECHA = 10;
+  int LATITUD = 10;
   /** RegularExpression Id. */
-  int HORA = 11;
+  int NUM = 11;
   /** RegularExpression Id. */
-  int MINUTO = 12;
+  int HORA = 12;
   /** RegularExpression Id. */
-  int HORARIO = 13;
+  int MINUTO = 13;
   /** RegularExpression Id. */
-  int RECID = 14;
+  int HORARIO = 14;
   /** RegularExpression Id. */
-  int ESTADOSISTEMA = 15;
+  int DIA = 15;
   /** RegularExpression Id. */
-  int LATITUD = 16;
+  int MES = 16;
+  /** RegularExpression Id. */
+  int ANIO = 17;
+  /** RegularExpression Id. */
+  int FECHA = 18;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -47,27 +51,28 @@ public interface AnalizadorConstants {
   /** Literal token values. */
   String[] tokenImage = {
     "<EOF>",
+    "\",\"",
     "\".\"",
     "\"-\"",
     "\":\"",
     "<IDENTIFICADOR>",
+    "<RECID>",
+    "<ESTADOSISTEMA>",
     "<NOMBRE>",
     "<NUMFILAS>",
+    "<LATITUD>",
+    "<NUM>",
+    "<HORA>",
+    "<MINUTO>",
+    "<HORARIO>",
     "<DIA>",
     "<MES>",
     "<ANIO>",
     "<FECHA>",
-    "<HORA>",
-    "<MINUTO>",
-    "<HORARIO>",
-    "<RECID>",
-    "<ESTADOSISTEMA>",
-    "<LATITUD>",
     "\" \"",
     "\"\\r\"",
     "\"\\n\"",
     "\"\\t\"",
-    "\",\"",
   };
 
 }
