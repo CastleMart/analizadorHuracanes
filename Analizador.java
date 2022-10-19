@@ -29,7 +29,6 @@ public class Analizador implements AnalizadorConstants {
       jj_consume_token(SALTO);
       filaDatos();
     }
-    jj_consume_token(0);
   }
 
   static final public void valores() throws ParseException {
@@ -60,6 +59,9 @@ public class Analizador implements AnalizadorConstants {
           break;
         case SALTO:
           jj_consume_token(SALTO);
+          break;
+        case 0:
+          jj_consume_token(0);
           break;
         default:
           jj_la1[2] = jj_gen;
@@ -112,7 +114,7 @@ public class Analizador implements AnalizadorConstants {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x40,0x8500,0x22,0x8500,0x200,};
+      jj_la1_0 = new int[] {0x40,0x8500,0x23,0x8500,0x200,};
    }
 
   /** Constructor with InputStream. */

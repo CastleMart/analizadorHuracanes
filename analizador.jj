@@ -28,9 +28,9 @@ TOKEN : {
 TOKEN : {
 <IDENTIFICADOR: "AL" (<NUM>) {6} <COMA> > {System.out.println("IDENTIFICADOR -- " + image);} |
 <NOMBRE: (" "){5,16}(["A"-"Z","a"-"z", "-"])* <COMA> >{System.out.println("NOMBRE -- " + image);}|
-<NUMFILAS_VALOR: (" "){4,6} (["0"-"9"]){1,3} <COMA>>{System.out.println("NUMFILAS_VALOR -- " + image);}|
+<NUMFILAS_VALOR: (" "){4,6} (["0"-"9"]){1,3} <COMA>>{System.out.println("NUMFILAS O VALOR -- " + image);}|
 <FECHA: (<NUM>){8} <COMA> >{System.out.println("FECHA -- " + image);}|
-<VALOR_HORA: " " (<NUM>){4}<COMA> >{System.out.println("VALOR_HORA -- "+ image);}|
+<VALOR_HORA: " " (<NUM>){4}<COMA> >{System.out.println("VALOR O HORA -- "+ image);}|
 <RECID: " " ("C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W"|" " )<COMA> >{System.out.println("RECORDIDENT -- " + image);}|
 <ESTADOSISTEMA:" "("TD"|"TS"|"HU"|"EX"|"SD"|"SS"|"LO"|"WV"|"DB") <COMA> >{System.out.println("ESTADOSISTEMA -- " + image);}|
 <LATITUD:(" "){1,2} (<NUM>){1,3} <PUNTO> <NUM> ("N"|"S") <COMA>>{System.out.println("LATITUD -- " + image);}|
@@ -56,11 +56,11 @@ SKIP : {
   " " |"\r" | "\t"
 }
 void run():{} {
-        (<IDENTIFICADOR> <NOMBRE>valores()<SALTO> filaDatos())* <EOF>
+        (<IDENTIFICADOR> <NOMBRE>valores()<SALTO> filaDatos())*
         }
 
 void valores():{}{
-    (<VALOR_HORA> | <NUMFILAS_VALOR>| <VALOR> (<COMA>|<SALTO> ) )*
+    (<VALOR_HORA> | <NUMFILAS_VALOR>| <VALOR> (<COMA>|<SALTO>|<EOF> ) )*
 
 }
 void filaDatos():{}{

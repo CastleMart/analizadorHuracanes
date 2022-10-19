@@ -766,7 +766,7 @@ static void TokenLexicalActions(Token matchedToken)
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                     System.out.println("NUMFILAS_VALOR -- " + image);
+                                                     System.out.println("NUMFILAS O VALOR -- " + image);
          break;
       case 9 :
         if (image == null)
@@ -778,7 +778,7 @@ static void TokenLexicalActions(Token matchedToken)
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                    System.out.println("VALOR_HORA -- "+ image);
+                                    System.out.println("VALOR O HORA -- "+ image);
          break;
       case 11 :
         if (image == null)
