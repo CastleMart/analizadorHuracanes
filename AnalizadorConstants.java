@@ -29,21 +29,27 @@ public interface AnalizadorConstants {
   /** RegularExpression Id. */
   int LATITUD = 10;
   /** RegularExpression Id. */
-  int NUM = 11;
+  int LONGITUD = 11;
   /** RegularExpression Id. */
-  int HORA = 12;
+  int VALOREXTRA = 12;
   /** RegularExpression Id. */
-  int MINUTO = 13;
+  int VALORES = 13;
   /** RegularExpression Id. */
-  int HORARIO = 14;
+  int HORA = 14;
   /** RegularExpression Id. */
-  int DIA = 15;
+  int MINUTO = 15;
   /** RegularExpression Id. */
-  int MES = 16;
+  int HORARIO = 16;
   /** RegularExpression Id. */
-  int ANIO = 17;
+  int DIA = 17;
   /** RegularExpression Id. */
-  int FECHA = 18;
+  int MES = 18;
+  /** RegularExpression Id. */
+  int ANIO = 19;
+  /** RegularExpression Id. */
+  int FECHA = 20;
+  /** RegularExpression Id. */
+  int NUM = 21;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -61,7 +67,9 @@ public interface AnalizadorConstants {
     "<NOMBRE>",
     "<NUMFILAS>",
     "<LATITUD>",
-    "<NUM>",
+    "<LONGITUD>",
+    "<VALOREXTRA>",
+    "<VALORES>",
     "<HORA>",
     "<MINUTO>",
     "<HORARIO>",
@@ -69,6 +77,7 @@ public interface AnalizadorConstants {
     "<MES>",
     "<ANIO>",
     "<FECHA>",
+    "<NUM>",
     "\" \"",
     "\"\\r\"",
     "\"\\n\"",

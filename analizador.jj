@@ -24,45 +24,40 @@ TOKEN : {
     <DOS_PUNTOS: ":" > {System.out.println("DOS PUNTOS");}
     //<ESP: "  ">{System.out.println("ESPACIO");}
 }
-
-
 TOKEN : {
 <IDENTIFICADOR: "AL" ["0"-"9"] ["0"-"9"] <ANIO> <COMA> > {System.out.println("IDENTIFICADOR -- " + image);} |
-<RECID: "C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W"|" " <COMA> >{System.out.println("RECORDIDENT -- " + image);}|
+<RECID: ("C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W"|" " )<COMA> >{System.out.println("RECORDIDENT -- " + image);}|
 <ESTADOSISTEMA:("TD"|"TS"|"HU"|"EX"|"SD"|"SS"|"LO"|"WV"|"DB") <COMA> >{System.out.println("ESTADOSISTEMA -- " + image);}|
 <NOMBRE: (["A"-"Z","a"-"z"])* >{System.out.println("NOMBRE -- " + image);}|
-<NUMFILAS: ["0"-"9"] ["0"-"9"] <COMA>>{System.out.println("NUMFILAS -- " + image);}|
-
-<LATITUD: (<NUM>){1,5} "." (<NUM>){1 ,5} ("N"|"S") <COMA>>{System.out.println("LATITUD");}
+<NUMFILAS: "   " (["0"-"9"]){1,3} <COMA>>{System.out.println("NUMFILAS -- " + image);}|
+<LATITUD: <VALOREXTRA> "." (<NUM>){1 ,5} ("N"|"S") <COMA>>{System.out.println("LATITUD -- " + image);}|
+<LONGITUD: <VALOREXTRA> "." (<NUM>){1 ,5} ("W"|"E") <COMA>>{System.out.println("LONGITUD -- " + image);}|
+<VALOREXTRA: (<NEGATIVO>|" ") (["0"-"9"]){1,4}>{System.out.println("VALOR_EXTRA -- " + image);}|
+<VALORES: (" " <VALOREXTRA> <COMA> )* >{System.out.println("VALORES_EXTRA -- " + image);}
 }
 
 TOKEN : {
-<NUM: ["0"-"9"]>|
-<HORA:["0"-"2"] <NUM> >{System.out.println("HORA");}|
-<MINUTO:["0"-"5"] <NUM>> {System.out.println("MINUTO");}|
-<HORARIO:<HORA><MINUTO><COMA>>{System.out.println("HORARIO");}|
+<HORA:<NUM> <NUM> >{System.out.println("HORA");}|
+<MINUTO:<NUM> <NUM><COMA> > {System.out.println("MINUTO");}|
+<HORARIO:" " <HORA><MINUTO>>{System.out.println("HORARIO -- " + image);}|
 <DIA: ["0"-"3"] <NUM>> {System.out.print("DIA ");} |
 <MES:["0"-"1"]<NUM>> {System.out.print("MES ");}|
 <ANIO:(<NUM>){4}> {System.out.print("AÑO ");}|
-<FECHA: <ANIO> <MES> <DIA><COMA> >{System.out.println("FECHA");}
-
-
-
+<FECHA: <ANIO> <MES> <DIA><COMA> >{System.out.println("FECHA -- " + image);}
 }
 
-
-
-
-
-//TOKEN : {
-    //<NUMERO: (["0"-"9"])+ > {System.out.println("NUMERO");} |
+TOKEN : {
+    <NUM: (["0"-"9"]) > {System.out.println("NUMERO");}
     //<CADENA: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])* >{System.out.println("CADENA");}
-//  }
-
+ }
 SKIP : {
   " " |"\r" | "\n" | "\t"
 }
-
 void run():{} {
-        <IDENTIFICADOR> <NOMBRE> <COMA> <NUMFILAS> <FECHA><HORARIO> <RECID><ESTADOSISTEMA><LATITUD><EOF>
+        (<IDENTIFICADOR> <NOMBRE> <COMA> <NUMFILAS> filaDatos())* <EOF>
         }
+
+void filaDatos():{}{
+    (<FECHA><HORARIO> <RECID><ESTADOSISTEMA><LATITUD><LONGITUD> <VALORES> <VALOREXTRA>)*
+
+}
