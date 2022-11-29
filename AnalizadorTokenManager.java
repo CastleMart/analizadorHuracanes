@@ -766,7 +766,11 @@ static void TokenLexicalActions(Token matchedToken)
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                     System.out.println("NUMFILAS O VALOR -- " + image);
+ String fin = image.toString();
+
+                String cadena1 = fin.replace(",","");
+
+        System.out.println(cadena1);
          break;
       case 9 :
         if (image == null)
