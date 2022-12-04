@@ -3,6 +3,7 @@ public class Analizador implements AnalizadorConstants {
     public static void main (String[] args) {
         try{
             Analizador checador =  new Analizador(System.in);
+
             checador.run();
             System.out.println("Se ha compilado correctamente  :)");
         }
@@ -56,9 +57,11 @@ public class Analizador implements AnalizadorConstants {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case COMA:
           jj_consume_token(COMA);
+                                                      System.out.print(",");
           break;
         case SALTO:
           jj_consume_token(SALTO);
+                                                                                      System.out.println("");
           break;
         case 0:
           jj_consume_token(0);

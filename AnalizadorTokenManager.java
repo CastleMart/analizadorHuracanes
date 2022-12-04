@@ -754,65 +754,61 @@ static void TokenLexicalActions(Token matchedToken)
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                           System.out.println("IDENTIFICADOR -- " + image);
+                                            String id = image.toString(); id = id.replace("," , "").replace(" " , "");System.out.print(id  + ",");
          break;
       case 7 :
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                       System.out.println("NOMBRE -- " + image);
+                                                       String cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");
          break;
       case 8 :
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
- String fin = image.toString();
-
-                String cadena1 = fin.replace(",","");
-
-        System.out.println(cadena1);
+                                                      cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");
          break;
       case 9 :
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                            System.out.println("FECHA -- " + image);
+                             cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");
          break;
       case 10 :
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                    System.out.println("VALOR O HORA -- "+ image);
+                                     cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");
          break;
       case 11 :
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                               System.out.println("RECORDIDENT -- " + image);
+                                                                cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");
          break;
       case 12 :
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                                          System.out.println("ESTADOSISTEMA -- " + image);
+                                                                           cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");
          break;
       case 13 :
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                                 System.out.println("LATITUD -- " + image);
+                                                                  cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");
          break;
       case 14 :
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                                 System.out.println("LONGITUD -- " + image);
+                                                                  cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");
          break;
       case 15 :
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                            System.out.println("VALOR -- " + image);
+                                                             cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena);
          break;
       case 16 :
         if (image == null)
