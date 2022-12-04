@@ -13,31 +13,27 @@ public interface AnalizadorConstants {
   /** RegularExpression Id. */
   int PUNTO = 2;
   /** RegularExpression Id. */
-  int NEGATIVO = 3;
+  int DOS_PUNTOS = 3;
   /** RegularExpression Id. */
-  int DOS_PUNTOS = 4;
+  int SALTO = 4;
   /** RegularExpression Id. */
-  int SALTO = 5;
+  int RETORNO = 5;
   /** RegularExpression Id. */
   int IDENTIFICADOR = 6;
   /** RegularExpression Id. */
   int NOMBRE = 7;
   /** RegularExpression Id. */
-  int NUMFILAS_VALOR = 8;
+  int NUMFILAS = 8;
   /** RegularExpression Id. */
   int FECHA = 9;
   /** RegularExpression Id. */
-  int VALOR_HORA = 10;
+  int RECID = 10;
   /** RegularExpression Id. */
-  int RECID = 11;
+  int LATITUD = 11;
   /** RegularExpression Id. */
-  int LATITUD = 12;
+  int LONGITUD = 12;
   /** RegularExpression Id. */
-  int LONGITUD = 13;
-  /** RegularExpression Id. */
-  int VALOR = 14;
-  /** RegularExpression Id. */
-  int NUM = 15;
+  int VALOR = 13;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -47,22 +43,19 @@ public interface AnalizadorConstants {
     "<EOF>",
     "\",\"",
     "\".\"",
-    "\"-\"",
     "\":\"",
     "\"\\n\"",
+    "\"\\r\"",
     "<IDENTIFICADOR>",
     "<NOMBRE>",
-    "<NUMFILAS_VALOR>",
+    "<NUMFILAS>",
     "<FECHA>",
-    "<VALOR_HORA>",
     "<RECID>",
     "<LATITUD>",
     "<LONGITUD>",
     "<VALOR>",
-    "<NUM>",
-    "\" \"",
-    "\"\\r\"",
     "\"\\t\"",
+    "\" \"",
   };
 
 }

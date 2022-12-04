@@ -5,7 +5,6 @@ public class Analizador {
     public static void main (String[] args) {
         try{
             Analizador checador =  new Analizador(System.in);
-            
             checador.run();
             System.out.println("Se ha compilado correctamente  :)");
         }
@@ -18,26 +17,74 @@ public class Analizador {
 PARSER_END(Analizador)
 
 
+
+
 TOKEN : {
     <COMA: "," >  |
     <PUNTO: "." > {System.out.println("PUNTO");} |
-    <NEGATIVO: "-" > {System.out.println("NEGATIVO o GUIÓN");} |
+    //<NEGATIVO: "-" > {System.out.println("NEGATIVO o GUIÓN");} |
     <DOS_PUNTOS: ":" > {System.out.println("DOS PUNTOS");}|
-    <SALTO: "\n">
+    <SALTO: "\n">|
+    <RETORNO: "\r">
     //<ESP: "  ">{System.out.println("ESPACIO");}
 }
 TOKEN : {
-<IDENTIFICADOR: ("AL"|"PA") (<NUM>) {6} <COMA> > {} |
-<NOMBRE: (" ")*(["A"-"Z","a"-"z", "-"])+ <COMA> >{}|
-<NUMFILAS_VALOR: (" ")* (["0"-"9"]){1,3} <COMA>>{String cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");}|
-<FECHA: (<NUM>){8} <COMA> >{}|
-<VALOR_HORA: (" ")* (<NUM>){4}<COMA> >{ cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");}|
-<RECID: (" ")* ("C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W")?<COMA> (" ")*("TD"|"TS"|"HU"|"EX"|"SD"|"SS"|"LO"|"WV"|"DB") <COMA>>{ cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");}|
+<IDENTIFICADOR: ("AL"|"PA") (["0"-"9"]) {6} <COMA> > {
+    String cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    matchedToken.image = cadena;
+    } |
+<NOMBRE: (" ")*(["A"-"Z","a"-"z", "-"])+ <COMA> >{
+    cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    matchedToken.image = cadena;
+}|
+<NUMFILAS:(" ")* (["0"-"9"])*<COMA>(" ")?<RETORNO><SALTO>>{
+    cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    cadena = cadena.replace("\r" , "");
+    cadena = cadena.replace("\n" , "");
+    matchedToken.image = cadena;
+}|
+<FECHA: (["0"-"9"]){8} <COMA> >{
+    cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    matchedToken.image = cadena;
+}|
+/*<VALOR_HORA: (" ")* (<NUM>){4}<COMA> >{ 
+    cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    matchedToken.image = cadena;
+}|*/
+<RECID: (" ")* ("C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W")?<COMA> (" ")*("TD"|"TS"|"HU"|"EX"|"SD"|"SS"|"LO"|"WV"|"DB") <COMA>>{
+    
+    cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    matchedToken.image = cadena;
+}|
 //<ESTADOSISTEMA: >{ cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");}|
-<LATITUD:(" ")* (<NUM>){1,3} <PUNTO> <NUM> ("N"|"S") <COMA>>{ cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");}|
-<LONGITUD:(" ")* (<NUM>){1,3}<PUNTO> <NUM> ("W"|"E") <COMA>>{ cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");}|
-<VALOR: (" ")* (<NEGATIVO>|" "|<NUM>) (["0"-"9"]){1,3}>{ cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena);}
+<LATITUD:(" ")* (["0"-"9"]){1,3} <PUNTO> ["0"-"9"] ("N"|"S") <COMA>>{
+    cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    matchedToken.image = cadena;
+}|
+<LONGITUD:(" ")* (["0"-"9"]){1,3}<PUNTO> ["0"-"9"] ("W"|"E") <COMA>>{ 
+    cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    matchedToken.image = cadena;
+}|
+<VALOR: (" ")+  ("-")? (["0"-"9"])* (<COMA>|<RETORNO><SALTO>|"")>{
+    cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    matchedToken.image = cadena;
+}/*|
+
+<VALORNEG: (" ")+ ("-")? (["0"-"9"])* (<COMA>)?|(<SALTO>|" ")>
+*/
+
 }
+
+
 
 /*TOKEN : {
 
@@ -49,36 +96,38 @@ TOKEN : {
 
 }*/
 
-TOKEN : {
-    <NUM: (["0"-"9"]) > {}
-    //<CADENA: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z","0"-"9","_"])* >{System.out.println("CADENA");}
- }
-SKIP : {
-  " " |"\r" | "\t"
-}
-void run():{Token t; String fecha; String id;} {
-        (id = iden() valores() <SALTO> (t = <FECHA>{fecha = t.image;}{System.out.print(id + fecha);}<VALOR_HORA> <RECID><LATITUD><LONGITUD>  valores())*)*
+
+void run():{Token t; String cadena; String id;} {
+        (
+            id = huracan(){}
+            (
+                t = <FECHA>{cadena = t.image;}
+                t = <VALOR>{cadena =cadena + t.image;}
+                t = <RECID>{cadena = cadena + t.image;}
+                t = <LATITUD>{cadena = cadena + t.image;}
+                t = <LONGITUD>{cadena = cadena + t.image; }
+                t = <VALOR>{cadena = cadena + t.image;}
+                (t = <VALOR>{cadena = cadena + t.image;})+
+                {System.out.print(id + cadena);}
+            )+
+        )+
         }
 
-String valoresUnicos():{Token t; String valor;}{
-   (t = <VALOR_HORA>{valor = t.image;} | t = <NUMFILAS_VALOR>{valor = t.image;}| t = <VALOR>{valor = t.image;})(<SALTO>{System.out.println("");}{return valor;})
-
-}
-
-void valores():{}{
-    (<VALOR_HORA>|<NUMFILAS_VALOR>| <VALOR>(<COMA>{System.out.print(",");}|<SALTO>{System.out.println("");}|<EOF> ))*    
-}
 
 
-void filaDatos():{}{
-    (<FECHA><VALOR_HORA> <RECID><LATITUD><LONGITUD>  valores())*
 
-}
 
-String iden():{Token t; String ide;}{
-    t = <IDENTIFICADOR>{ide = t.image;}
-    t = <NOMBRE>{ide = ide + t.image;}{return ide;}
+
+String huracan():{Token t; String cadena;}{
+    t = <IDENTIFICADOR>{cadena = t.image;}
+    t = <NOMBRE>{cadena = cadena + t.image;}
+    t = <NUMFILAS>{
+        cadena = cadena + t.image;
+        return cadena;}
 
 }
 
 
+SKIP:{
+     "\t" | " " 
+}

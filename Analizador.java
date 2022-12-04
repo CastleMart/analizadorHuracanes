@@ -3,7 +3,6 @@ public class Analizador implements AnalizadorConstants {
     public static void main (String[] args) {
         try{
             Analizador checador =  new Analizador(System.in);
-
             checador.run();
             System.out.println("Se ha compilado correctamente  :)");
         }
@@ -13,23 +12,49 @@ public class Analizador implements AnalizadorConstants {
         }
     }
 
+/*TOKEN : {
+
+<MINUTO:<NUM> <NUM><COMA> > {System.out.println("MINUTO");}|
+<HORARIO:" " <HORA><MINUTO>>{System.out.println("HORARIO -- " + image);}|
+<DIA: ["0"-"3"] <NUM>> {System.out.print("DIA ");} |
+<MES:["0"-"1"]<NUM>> {System.out.print("MES ");}|
+<ANIO:(<NUM>){4}> {System.out.print("AÑO ");}|
+
+}*/
   static final public void run() throws ParseException {
-            Token t; String fecha; String id;
+            Token t; String cadena; String id;
     label_1:
     while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case IDENTIFICADOR:
-        ;
-        break;
-      default:
-        jj_la1[0] = jj_gen;
-        break label_1;
-      }
-      id = iden();
-      valores();
-      jj_consume_token(SALTO);
+      id = huracan();
+
       label_2:
       while (true) {
+        t = jj_consume_token(FECHA);
+                            cadena = t.image;
+        t = jj_consume_token(VALOR);
+                            cadena =cadena + t.image;
+        t = jj_consume_token(RECID);
+                            cadena = cadena + t.image;
+        t = jj_consume_token(LATITUD);
+                              cadena = cadena + t.image;
+        t = jj_consume_token(LONGITUD);
+                               cadena = cadena + t.image;
+        t = jj_consume_token(VALOR);
+                            cadena = cadena + t.image;
+        label_3:
+        while (true) {
+          t = jj_consume_token(VALOR);
+                             cadena = cadena + t.image;
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case VALOR:
+            ;
+            break;
+          default:
+            jj_la1[0] = jj_gen;
+            break label_3;
+          }
+        }
+                 System.out.print(id + cadena);
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case FECHA:
           ;
@@ -38,119 +63,27 @@ public class Analizador implements AnalizadorConstants {
           jj_la1[1] = jj_gen;
           break label_2;
         }
-        t = jj_consume_token(FECHA);
-                                                    fecha = t.image;
-                                                                      System.out.print(id + fecha);
-        jj_consume_token(VALOR_HORA);
-        jj_consume_token(RECID);
-        jj_consume_token(LATITUD);
-        jj_consume_token(LONGITUD);
-        valores();
       }
-    }
-  }
-
-  static final public String valoresUnicos() throws ParseException {
-                        Token t; String valor;
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case VALOR_HORA:
-      t = jj_consume_token(VALOR_HORA);
-                     valor = t.image;
-      break;
-    case NUMFILAS_VALOR:
-      t = jj_consume_token(NUMFILAS_VALOR);
-                                                              valor = t.image;
-      break;
-    case VALOR:
-      t = jj_consume_token(VALOR);
-                                                                                             valor = t.image;
-      break;
-    default:
-      jj_la1[2] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
-    jj_consume_token(SALTO);
-                                                                                                                        System.out.println("");
-                                                                                                                                                 {if (true) return valor;}
-    throw new Error("Missing return statement in function");
-  }
-
-  static final public void valores() throws ParseException {
-    label_3:
-    while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case NUMFILAS_VALOR:
-      case VALOR_HORA:
-      case VALOR:
+      case IDENTIFICADOR:
         ;
         break;
       default:
-        jj_la1[3] = jj_gen;
-        break label_3;
-      }
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case VALOR_HORA:
-        jj_consume_token(VALOR_HORA);
-        break;
-      case NUMFILAS_VALOR:
-        jj_consume_token(NUMFILAS_VALOR);
-        break;
-      case VALOR:
-        jj_consume_token(VALOR);
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case COMA:
-          jj_consume_token(COMA);
-                                                   System.out.print(",");
-          break;
-        case SALTO:
-          jj_consume_token(SALTO);
-                                                                                   System.out.println("");
-          break;
-        case 0:
-          jj_consume_token(0);
-          break;
-        default:
-          jj_la1[4] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
-        }
-        break;
-      default:
-        jj_la1[5] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
+        jj_la1[2] = jj_gen;
+        break label_1;
       }
     }
   }
 
-  static final public void filaDatos() throws ParseException {
-    label_4:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case FECHA:
-        ;
-        break;
-      default:
-        jj_la1[6] = jj_gen;
-        break label_4;
-      }
-      jj_consume_token(FECHA);
-      jj_consume_token(VALOR_HORA);
-      jj_consume_token(RECID);
-      jj_consume_token(LATITUD);
-      jj_consume_token(LONGITUD);
-      valores();
-    }
-  }
-
-  static final public String iden() throws ParseException {
-               Token t; String ide;
+  static final public String huracan() throws ParseException {
+                  Token t; String cadena;
     t = jj_consume_token(IDENTIFICADOR);
-                        ide = t.image;
+                        cadena = t.image;
     t = jj_consume_token(NOMBRE);
-                 ide = ide + t.image;
-                                       {if (true) return ide;}
+                 cadena = cadena + t.image;
+    t = jj_consume_token(NUMFILAS);
+        cadena = cadena + t.image;
+        {if (true) return cadena;}
     throw new Error("Missing return statement in function");
   }
 
@@ -164,13 +97,13 @@ public class Analizador implements AnalizadorConstants {
   static public Token jj_nt;
   static private int jj_ntk;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[7];
+  static final private int[] jj_la1 = new int[3];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x40,0x200,0x4500,0x4500,0x23,0x4500,0x200,};
+      jj_la1_0 = new int[] {0x2000,0x200,0x40,};
    }
 
   /** Constructor with InputStream. */
@@ -191,7 +124,7 @@ public class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 7; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -205,7 +138,7 @@ public class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 7; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -222,7 +155,7 @@ public class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 7; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -232,7 +165,7 @@ public class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 7; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -248,7 +181,7 @@ public class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 7; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -257,7 +190,7 @@ public class Analizador implements AnalizadorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 7; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -308,12 +241,12 @@ public class Analizador implements AnalizadorConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[19];
+    boolean[] la1tokens = new boolean[16];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 3; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -322,7 +255,7 @@ public class Analizador implements AnalizadorConstants {
         }
       }
     }
-    for (int i = 0; i < 19; i++) {
+    for (int i = 0; i < 16; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
