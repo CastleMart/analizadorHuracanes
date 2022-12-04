@@ -31,15 +31,13 @@ public interface AnalizadorConstants {
   /** RegularExpression Id. */
   int RECID = 11;
   /** RegularExpression Id. */
-  int ESTADOSISTEMA = 12;
+  int LATITUD = 12;
   /** RegularExpression Id. */
-  int LATITUD = 13;
+  int LONGITUD = 13;
   /** RegularExpression Id. */
-  int LONGITUD = 14;
+  int VALOR = 14;
   /** RegularExpression Id. */
-  int VALOR = 15;
-  /** RegularExpression Id. */
-  int NUM = 16;
+  int NUM = 15;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -58,7 +56,6 @@ public interface AnalizadorConstants {
     "<FECHA>",
     "<VALOR_HORA>",
     "<RECID>",
-    "<ESTADOSISTEMA>",
     "<LATITUD>",
     "<LONGITUD>",
     "<VALOR>",
