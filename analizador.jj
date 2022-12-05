@@ -7,7 +7,7 @@ public class Analizador {
             Analizador checador =  new Analizador(System.in);
             System.out.println("ocean,numCycl,year,name,numTrcks,yearTrck,monthTrck,dayTrck,hourTrck,minutsTrck,recordId,statusSys,latitude,longitude,maxSustWin,minPress,34ktNE,34ktSE,34ktSW,34ktNW,50ktNE,50ktSE,50ktSW,50ktNW,64ktNE,64ktSE,64ktSW,64ktNW,radMaxWind");
             checador.run();
-            System.out.println("Se ha compilado correctamente  :)");
+            
         }
         catch (ParseException e){
             System.out.println("Hay un error  :(");
@@ -78,11 +78,25 @@ TOKEN : {
 <LATITUD:(" ")* (["0"-"9"]){1,3} <PUNTO> ["0"-"9"] ("N"|"S") <COMA>>{
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
+    if(cadena.contains("S")){
+        
+        cadena = "-"+cadena;
+    }
+    
+    cadena.replace("N", "");
+    
     matchedToken.image = cadena;
 }|
 <LONGITUD:(" ")* (["0"-"9"]){1,3}<PUNTO> ["0"-"9"] ("W"|"E") <COMA>>{ 
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
+    if(cadena.contains("W")){
+        
+        cadena = "-"+ cadena;
+    }
+    
+    cadena.replace("E", "");
+    
     matchedToken.image = cadena;
 }|
 <VALOR: (" ")+  ("-")? (["0"-"9"])* (<COMA>|<RETORNO><SALTO>|"")>{
@@ -122,10 +136,10 @@ void run():{Token t; String cadena, auxiliar, id;} {
                     cadena =cadena + auxiliar.substring(0,2) + "," + auxiliar.substring(2);
                     }
                 t = <RECID>{cadena = cadena + t.image;}
-                t = <LATITUD>{cadena = cadena + t.image;}
-                t = <LONGITUD>{cadena = cadena + t.image; }
+                t = <LATITUD>{ cadena = cadena + t.image.replace("N","").replace("S","");}
+                t = <LONGITUD>{cadena = cadena + t.image.replace("W","").replace("E",""); }
                 t = <VALOR>{cadena = cadena + t.image;}
-                (t = <VALOR>{cadena = cadena + t.image;})+
+                (t = <VALOR>{cadena = cadena + t.image.replace("-999","NULL");})+
                 {System.out.print(id + cadena);}
             )+
         )+

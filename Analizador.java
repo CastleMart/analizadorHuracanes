@@ -5,7 +5,7 @@ public class Analizador implements AnalizadorConstants {
             Analizador checador =  new Analizador(System.in);
             System.out.println("ocean,numCycl,year,name,numTrcks,yearTrck,monthTrck,dayTrck,hourTrck,minutsTrck,recordId,statusSys,latitude,longitude,maxSustWin,minPress,34ktNE,34ktSE,34ktSW,34ktNW,50ktNE,50ktSE,50ktSW,50ktNW,64ktNE,64ktSE,64ktSW,64ktNW,radMaxWind");
             checador.run();
-            System.out.println("Se ha compilado correctamente  :)");
+
         }
         catch (ParseException e){
             System.out.println("Hay un error  :(");
@@ -39,15 +39,15 @@ public class Analizador implements AnalizadorConstants {
         t = jj_consume_token(RECID);
                             cadena = cadena + t.image;
         t = jj_consume_token(LATITUD);
-                              cadena = cadena + t.image;
+                               cadena = cadena + t.image.replace("N","").replace("S","");
         t = jj_consume_token(LONGITUD);
-                               cadena = cadena + t.image;
+                               cadena = cadena + t.image.replace("W","").replace("E","");
         t = jj_consume_token(VALOR);
                             cadena = cadena + t.image;
         label_3:
         while (true) {
           t = jj_consume_token(VALOR);
-                             cadena = cadena + t.image;
+                             cadena = cadena + t.image.replace("-999","NULL");
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
           case VALOR:
             ;

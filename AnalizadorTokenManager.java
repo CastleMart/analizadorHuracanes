@@ -770,6 +770,13 @@ static void TokenLexicalActions(Token matchedToken)
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
+    if(cadena.contains("S")){
+
+        cadena = "-"+cadena;
+    }
+
+    cadena.replace("N", "");
+
     matchedToken.image = cadena;
          break;
       case 12 :
@@ -778,6 +785,13 @@ static void TokenLexicalActions(Token matchedToken)
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
+    if(cadena.contains("W")){
+
+        cadena = "-"+ cadena;
+    }
+
+    cadena.replace("E", "");
+
     matchedToken.image = cadena;
          break;
       case 13 :
