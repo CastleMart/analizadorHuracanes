@@ -748,9 +748,21 @@ static void TokenLexicalActions(Token matchedToken)
         if (image == null)
             image = new StringBuffer();
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
+    String[] separador;
     cadena = image.toString();
+    separador = cadena.split("," , 2 );
+    separador[0] = separador[0].replace(" ", "");
+    separador[1] = separador[1].replace(" ","");
+
     cadena = cadena.replace(" " , "");
-    matchedToken.image = cadena;
+
+    if ( separador[0].isEmpty() )
+        {
+                separador[0] = "NULL";
+        }
+
+
+    matchedToken.image = separador[0] + "," + separador[1];
          break;
       case 11 :
         if (image == null)

@@ -3,6 +3,7 @@ public class Analizador implements AnalizadorConstants {
     public static void main (String[] args) {
         try{
             Analizador checador =  new Analizador(System.in);
+            System.out.println("ocean,numCycl,year,name,numTrcks,yearTrck,monthTrck,dayTrck,hourTrck,minutsTrck,recordId,statusSys,latitude,longitude,maxSustWin,minPress,34ktNE,34ktSE,34ktSW,34ktNW,50ktNE,50ktSE,50ktSW,50ktNW,64ktNE,64ktSE,64ktSW,64ktNW,radMaxWind");
             checador.run();
             System.out.println("Se ha compilado correctamente  :)");
         }
@@ -22,7 +23,7 @@ public class Analizador implements AnalizadorConstants {
 
 }*/
   static final public void run() throws ParseException {
-            Token t; String cadena; String id;
+            Token t; String cadena, auxiliar, id;
     label_1:
     while (true) {
       id = huracan();
@@ -30,9 +31,11 @@ public class Analizador implements AnalizadorConstants {
       label_2:
       while (true) {
         t = jj_consume_token(FECHA);
-                            cadena = t.image;
+                    auxiliar = t.image;
+                    cadena =auxiliar.substring(0,4) + "," + auxiliar.substring(4,6) + "," + auxiliar.substring(6);
         t = jj_consume_token(VALOR);
-                            cadena =cadena + t.image;
+                    auxiliar = t.image;
+                    cadena =cadena + auxiliar.substring(0,2) + "," + auxiliar.substring(2);
         t = jj_consume_token(RECID);
                             cadena = cadena + t.image;
         t = jj_consume_token(LATITUD);
@@ -76,9 +79,10 @@ public class Analizador implements AnalizadorConstants {
   }
 
   static final public String huracan() throws ParseException {
-                  Token t; String cadena;
+                  Token t; String cadena, auxiliar;
     t = jj_consume_token(IDENTIFICADOR);
-                        cadena = t.image;
+        cadena = t.image;
+        cadena = cadena.substring(0,2) + "," + cadena.substring(2,4) + "," + cadena.substring(4);
     t = jj_consume_token(NOMBRE);
                  cadena = cadena + t.image;
     t = jj_consume_token(NUMFILAS);

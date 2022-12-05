@@ -5,6 +5,7 @@ public class Analizador {
     public static void main (String[] args) {
         try{
             Analizador checador =  new Analizador(System.in);
+            System.out.println("ocean,numCycl,year,name,numTrcks,yearTrck,monthTrck,dayTrck,hourTrck,minutsTrck,recordId,statusSys,latitude,longitude,maxSustWin,minPress,34ktNE,34ktSE,34ktSW,34ktNW,50ktNE,50ktSE,50ktSW,50ktNW,64ktNE,64ktSE,64ktSW,64ktNW,radMaxWind");
             checador.run();
             System.out.println("Se ha compilado correctamente  :)");
         }
@@ -57,10 +58,21 @@ TOKEN : {
     matchedToken.image = cadena;
 }|*/
 <RECID: (" ")* ("C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W")?<COMA> (" ")*("TD"|"TS"|"HU"|"EX"|"SD"|"SS"|"LO"|"WV"|"DB") <COMA>>{
-    
+    String[] separador;
     cadena = image.toString();
+    separador = cadena.split("," , 2 );
+    separador[0] = separador[0].replace(" ", "");
+    separador[1] = separador[1].replace(" ","");
+
     cadena = cadena.replace(" " , "");
-    matchedToken.image = cadena;
+    
+    if ( separador[0].isEmpty() )
+	{
+		separador[0] = "NULL";
+	}
+    
+    
+    matchedToken.image = separador[0] + "," + separador[1];
 }|
 //<ESTADOSISTEMA: >{ cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");}|
 <LATITUD:(" ")* (["0"-"9"]){1,3} <PUNTO> ["0"-"9"] ("N"|"S") <COMA>>{
@@ -97,12 +109,18 @@ TOKEN : {
 }*/
 
 
-void run():{Token t; String cadena; String id;} {
+void run():{Token t; String cadena, auxiliar, id;} {
         (
             id = huracan(){}
             (
-                t = <FECHA>{cadena = t.image;}
-                t = <VALOR>{cadena =cadena + t.image;}
+                t = <FECHA>{
+                    auxiliar = t.image;
+                    cadena =auxiliar.substring(0,4) + "," + auxiliar.substring(4,6) + "," + auxiliar.substring(6);
+                    }
+                t = <VALOR>{
+                    auxiliar = t.image;
+                    cadena =cadena + auxiliar.substring(0,2) + "," + auxiliar.substring(2);
+                    }
                 t = <RECID>{cadena = cadena + t.image;}
                 t = <LATITUD>{cadena = cadena + t.image;}
                 t = <LONGITUD>{cadena = cadena + t.image; }
@@ -118,8 +136,11 @@ void run():{Token t; String cadena; String id;} {
 
 
 
-String huracan():{Token t; String cadena;}{
-    t = <IDENTIFICADOR>{cadena = t.image;}
+String huracan():{Token t; String cadena, auxiliar;}{
+    t = <IDENTIFICADOR>{
+        cadena = t.image;
+        cadena = cadena.substring(0,2) + "," + cadena.substring(2,4) + "," + cadena.substring(4);
+        }
     t = <NOMBRE>{cadena = cadena + t.image;}
     t = <NUMFILAS>{
         cadena = cadena + t.image;
