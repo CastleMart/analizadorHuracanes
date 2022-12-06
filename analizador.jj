@@ -17,7 +17,9 @@ public class Analizador {
 }
 PARSER_END(Analizador)
 
-
+SKIP:{
+     "\t" | "\r" 
+}
 
 
 TOKEN : {
@@ -25,22 +27,22 @@ TOKEN : {
     <PUNTO: "." > {System.out.println("PUNTO");} |
     //<NEGATIVO: "-" > {System.out.println("NEGATIVO o GUIÓN");} |
     <DOS_PUNTOS: ":" > {System.out.println("DOS PUNTOS");}|
-    <SALTO: "\n">|
-    <RETORNO: "\r">
+    <SALTO: "\n">
+    //<RETORNO: "\r">
     //<ESP: "  ">{System.out.println("ESPACIO");}
 }
 TOKEN : {
-<IDENTIFICADOR: ("AL"|"PA") (["0"-"9"]) {6} <COMA> > {
+<IDENTIFICADOR: ("AL"|"EP"|"CP") (["0"-"9"]) {6} <COMA> > {
     String cadena = image.toString();
     cadena = cadena.replace(" " , "");
     matchedToken.image = cadena;
     } |
-<NOMBRE: (" ")*(["A"-"Z","a"-"z", "-"])+ <COMA> >{
+<NOMBRE: (" ")*(["A"-"Z","a"-"z", "-"])+ (["0"-"9"]){0,2}(" ")?<COMA> >{
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
     matchedToken.image = cadena;
 }|
-<NUMFILAS:(" ")* (["0"-"9"])*<COMA>(" ")?<RETORNO><SALTO>>{
+<NUMFILAS:(" ")* (["0"-"9"])*<COMA>(" ")?<SALTO>>{
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
     cadena = cadena.replace("\r" , "");
@@ -57,7 +59,7 @@ TOKEN : {
     cadena = cadena.replace(" " , "");
     matchedToken.image = cadena;
 }|*/
-<RECID: (" ")* ("C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W")?<COMA> (" ")*("TD"|"TS"|"HU"|"EX"|"SD"|"SS"|"LO"|"WV"|"DB") <COMA>>{
+<RECID: (" ")* ("C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W")?<COMA> (" ")*("TD"|"TS"|"HU"|"EX"|"SD"|"SS"|"LO"|"WV"|"DB"|"ET"|"PT"|"ST"|"TY") <COMA>>{
     String[] separador;
     cadena = image.toString();
     separador = cadena.split("," , 2 );
@@ -99,7 +101,7 @@ TOKEN : {
     
     matchedToken.image = cadena;
 }|
-<VALOR: (" ")+  ("-")? (["0"-"9"])* (<COMA>|<RETORNO><SALTO>|"")>{
+<VALOR: (" ")+  ("-")? (["0"-"9"])* (<COMA>|<SALTO>|"")>{
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
     matchedToken.image = cadena;
@@ -156,13 +158,10 @@ String huracan():{Token t; String cadena, auxiliar;}{
         cadena = cadena.substring(0,2) + "," + cadena.substring(2,4) + "," + cadena.substring(4);
         }
     t = <NOMBRE>{cadena = cadena + t.image;}
-    t = <NUMFILAS>{
+    (t = <NUMFILAS>|t = <VALOR>){
         cadena = cadena + t.image;
         return cadena;}
 
 }
 
 
-SKIP:{
-     "\t" | " " 
-}

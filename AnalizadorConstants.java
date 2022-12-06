@@ -9,31 +9,29 @@ public interface AnalizadorConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int COMA = 1;
+  int COMA = 3;
   /** RegularExpression Id. */
-  int PUNTO = 2;
+  int PUNTO = 4;
   /** RegularExpression Id. */
-  int DOS_PUNTOS = 3;
+  int DOS_PUNTOS = 5;
   /** RegularExpression Id. */
-  int SALTO = 4;
+  int SALTO = 6;
   /** RegularExpression Id. */
-  int RETORNO = 5;
+  int IDENTIFICADOR = 7;
   /** RegularExpression Id. */
-  int IDENTIFICADOR = 6;
+  int NOMBRE = 8;
   /** RegularExpression Id. */
-  int NOMBRE = 7;
+  int NUMFILAS = 9;
   /** RegularExpression Id. */
-  int NUMFILAS = 8;
+  int FECHA = 10;
   /** RegularExpression Id. */
-  int FECHA = 9;
+  int RECID = 11;
   /** RegularExpression Id. */
-  int RECID = 10;
+  int LATITUD = 12;
   /** RegularExpression Id. */
-  int LATITUD = 11;
+  int LONGITUD = 13;
   /** RegularExpression Id. */
-  int LONGITUD = 12;
-  /** RegularExpression Id. */
-  int VALOR = 13;
+  int VALOR = 14;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -41,11 +39,12 @@ public interface AnalizadorConstants {
   /** Literal token values. */
   String[] tokenImage = {
     "<EOF>",
+    "\"\\t\"",
+    "\"\\r\"",
     "\",\"",
     "\".\"",
     "\":\"",
     "\"\\n\"",
-    "\"\\r\"",
     "<IDENTIFICADOR>",
     "<NOMBRE>",
     "<NUMFILAS>",
@@ -54,8 +53,6 @@ public interface AnalizadorConstants {
     "<LATITUD>",
     "<LONGITUD>",
     "<VALOR>",
-    "\"\\t\"",
-    "\" \"",
   };
 
 }
