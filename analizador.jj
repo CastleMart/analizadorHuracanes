@@ -25,11 +25,8 @@ SKIP:{
 TOKEN : {
     <COMA: "," >  |
     <PUNTO: "." > {System.out.println("PUNTO");} |
-    //<NEGATIVO: "-" > {System.out.println("NEGATIVO o GUIÓN");} |
     <DOS_PUNTOS: ":" > {System.out.println("DOS PUNTOS");}
-    //<SALTO: "\n">
-    //<RETORNO: "\r">
-    //<ESP: "  ">{System.out.println("ESPACIO");}
+    
 }
 TOKEN : {
 <IDENTIFICADOR: ("AL"|"EP"|"CP") (["0"-"9"]) {6} <COMA> > {
@@ -44,23 +41,13 @@ TOKEN : {
     cadena = cadena.replace("\n" , "");
     matchedToken.image = cadena;
 }|
-/*<NUMFILAS:(" ")* (["0"-"9"]){1,3}<COMA>(" ")?>{
-    cadena = image.toString();
-    cadena = cadena.replace(" " , "");
-    cadena = cadena.replace("\r" , "");
-    cadena = cadena.replace("\n" , "");
-    matchedToken.image = cadena;
-}|*/
+
 <FECHA: (["0"-"9"]){8} <COMA> >{
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
     matchedToken.image = cadena;
 }|
-/*<VALOR_HORA: (" ")* (<NUM>){4}<COMA> >{ 
-    cadena = image.toString();
-    cadena = cadena.replace(" " , "");
-    matchedToken.image = cadena;
-}|*/
+
 <RECID: (" ")* ("C"|"G"|"I"|"L"|"P"|"R"|"S"|"T"|"W")?<COMA> (" ")*("TD"|"TS"|"HU"|"EX"|"SD"|"SS"|"LO"|"WV"|"DB"|"ET"|"PT"|"ST"|"TY") <COMA>>{
     String[] separador;
     cadena = image.toString();
@@ -78,7 +65,7 @@ TOKEN : {
     
     matchedToken.image = separador[0] + "," + separador[1];
 }|
-//<ESTADOSISTEMA: >{ cadena = image.toString(); cadena = cadena.replace("," , "").replace(" " , "");System.out.print(cadena  + ",");}|
+
 <LATITUD:(" ")* (["0"-"9"]){1,3} <PUNTO> ["0"-"9"] ("N"|"S") <COMA>>{
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
@@ -107,25 +94,9 @@ TOKEN : {
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
     matchedToken.image = cadena;
-}/*|
-
-<VALORNEG: (" ")+ ("-")? (["0"-"9"])* (<COMA>)?|(<SALTO>|" ")>
-*/
-
 }
 
-
-
-/*TOKEN : {
-
-<MINUTO:<NUM> <NUM><COMA> > {System.out.println("MINUTO");}|
-<HORARIO:" " <HORA><MINUTO>>{System.out.println("HORARIO -- " + image);}|
-<DIA: ["0"-"3"] <NUM>> {System.out.print("DIA ");} |
-<MES:["0"-"1"]<NUM>> {System.out.print("MES ");}|
-<ANIO:(<NUM>){4}> {System.out.print("AÑO ");}|
-
-}*/
-
+}
 
 void run():{Token t; String cadena, auxiliar, id;} {
         (
@@ -150,10 +121,6 @@ void run():{Token t; String cadena, auxiliar, id;} {
         }
 
 
-
-
-
-
 String huracan():{Token t; String cadena, auxiliar;}{
     t = <IDENTIFICADOR>{
         cadena = t.image;
@@ -161,9 +128,7 @@ String huracan():{Token t; String cadena, auxiliar;}{
         }
     t = <NOMBRE>{cadena = cadena + t.image;
     return cadena;}
-    /*(t = <NUMFILAS>|t = <VALOR>){
-        cadena = cadena + t.image;
-        return cadena;}*/
+    
 
 }
 

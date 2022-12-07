@@ -13,15 +13,6 @@ public class Analizador implements AnalizadorConstants {
         }
     }
 
-/*TOKEN : {
-
-<MINUTO:<NUM> <NUM><COMA> > {System.out.println("MINUTO");}|
-<HORARIO:" " <HORA><MINUTO>>{System.out.println("HORARIO -- " + image);}|
-<DIA: ["0"-"3"] <NUM>> {System.out.print("DIA ");} |
-<MES:["0"-"1"]<NUM>> {System.out.print("MES ");}|
-<ANIO:(<NUM>){4}> {System.out.print("AÑO ");}|
-
-}*/
   static final public void run() throws ParseException {
             Token t; String cadena, auxiliar, id;
     label_1:
