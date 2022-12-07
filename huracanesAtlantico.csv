@@ -1,0 +1,6 @@
+ocean,numCycl,year,name,numTrcks,yearTrck,monthTrck,dayTrck,hourTrck,minutsTrck,recordId,statusSys,latitude,longitude,maxSustWin,minPress,34ktNE,34ktSE,34ktSW,34ktNW,50ktNE,50ktSE,50ktSW,50ktNW,64ktNE,64ktSE,64ktSW,64ktNW,radMaxWind
+Hay un error  :(
+Encountered " "\n" "\n "" at line 1, column 39.
+Was expecting:
+    <FECHA> ...
+    

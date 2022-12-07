@@ -9,29 +9,25 @@ public interface AnalizadorConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int COMA = 3;
+  int COMA = 4;
   /** RegularExpression Id. */
-  int PUNTO = 4;
+  int PUNTO = 5;
   /** RegularExpression Id. */
-  int DOS_PUNTOS = 5;
-  /** RegularExpression Id. */
-  int SALTO = 6;
+  int DOS_PUNTOS = 6;
   /** RegularExpression Id. */
   int IDENTIFICADOR = 7;
   /** RegularExpression Id. */
   int NOMBRE = 8;
   /** RegularExpression Id. */
-  int NUMFILAS = 9;
+  int FECHA = 9;
   /** RegularExpression Id. */
-  int FECHA = 10;
+  int RECID = 10;
   /** RegularExpression Id. */
-  int RECID = 11;
+  int LATITUD = 11;
   /** RegularExpression Id. */
-  int LATITUD = 12;
+  int LONGITUD = 12;
   /** RegularExpression Id. */
-  int LONGITUD = 13;
-  /** RegularExpression Id. */
-  int VALOR = 14;
+  int VALOR = 13;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -41,13 +37,12 @@ public interface AnalizadorConstants {
     "<EOF>",
     "\"\\t\"",
     "\"\\r\"",
+    "\"\\n\"",
     "\",\"",
     "\".\"",
     "\":\"",
-    "\"\\n\"",
     "<IDENTIFICADOR>",
     "<NOMBRE>",
-    "<NUMFILAS>",
     "<FECHA>",
     "<RECID>",
     "<LATITUD>",

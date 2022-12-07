@@ -18,7 +18,7 @@ public class Analizador {
 PARSER_END(Analizador)
 
 SKIP:{
-     "\t" | "\r" 
+     "\t" | "\r" |"\n"
 }
 
 
@@ -26,8 +26,8 @@ TOKEN : {
     <COMA: "," >  |
     <PUNTO: "." > {System.out.println("PUNTO");} |
     //<NEGATIVO: "-" > {System.out.println("NEGATIVO o GUIÓN");} |
-    <DOS_PUNTOS: ":" > {System.out.println("DOS PUNTOS");}|
-    <SALTO: "\n">
+    <DOS_PUNTOS: ":" > {System.out.println("DOS PUNTOS");}
+    //<SALTO: "\n">
     //<RETORNO: "\r">
     //<ESP: "  ">{System.out.println("ESPACIO");}
 }
@@ -37,18 +37,20 @@ TOKEN : {
     cadena = cadena.replace(" " , "");
     matchedToken.image = cadena;
     } |
-<NOMBRE: (" ")*(["A"-"Z","a"-"z", "-"])+ (["0"-"9"]){0,2}(" ")?<COMA> >{
-    cadena = image.toString();
-    cadena = cadena.replace(" " , "");
-    matchedToken.image = cadena;
-}|
-<NUMFILAS:(" ")* (["0"-"9"])*<COMA>(" ")?<SALTO>>{
+<NOMBRE: (" ")*(["A"-"Z","a"-"z", "-"])+ (["0"-"9"]){0,2}(" ")?<COMA> (" ")* (["0"-"9"]){1,3}<COMA>(" ")? >{
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
     cadena = cadena.replace("\r" , "");
     cadena = cadena.replace("\n" , "");
     matchedToken.image = cadena;
 }|
+/*<NUMFILAS:(" ")* (["0"-"9"]){1,3}<COMA>(" ")?>{
+    cadena = image.toString();
+    cadena = cadena.replace(" " , "");
+    cadena = cadena.replace("\r" , "");
+    cadena = cadena.replace("\n" , "");
+    matchedToken.image = cadena;
+}|*/
 <FECHA: (["0"-"9"]){8} <COMA> >{
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
@@ -101,7 +103,7 @@ TOKEN : {
     
     matchedToken.image = cadena;
 }|
-<VALOR: (" ")+  ("-")? (["0"-"9"])* (<COMA>|<SALTO>|"")>{
+<VALOR: (" ")+  ("-")? (["0"-"9"])* (<COMA>|"")>{
     cadena = image.toString();
     cadena = cadena.replace(" " , "");
     matchedToken.image = cadena;
@@ -142,7 +144,7 @@ void run():{Token t; String cadena, auxiliar, id;} {
                 t = <LONGITUD>{cadena = cadena + t.image.replace("W","").replace("E",""); }
                 t = <VALOR>{cadena = cadena + t.image;}
                 (t = <VALOR>{cadena = cadena + t.image.replace("-999","NULL");})+
-                {System.out.print(id + cadena);}
+                {System.out.println(id + cadena);}
             )+
         )+
         }
@@ -157,10 +159,11 @@ String huracan():{Token t; String cadena, auxiliar;}{
         cadena = t.image;
         cadena = cadena.substring(0,2) + "," + cadena.substring(2,4) + "," + cadena.substring(4);
         }
-    t = <NOMBRE>{cadena = cadena + t.image;}
-    (t = <NUMFILAS>|t = <VALOR>){
+    t = <NOMBRE>{cadena = cadena + t.image;
+    return cadena;}
+    /*(t = <NUMFILAS>|t = <VALOR>){
         cadena = cadena + t.image;
-        return cadena;}
+        return cadena;}*/
 
 }
 
